@@ -15,6 +15,7 @@ namespace NSuiteX.Library.ReverseComplement
         static BlockingCollection<byte[]> readQue = new BlockingCollection<byte[]>();
         static BlockingCollection<RevCompSequence> writeQue = new BlockingCollection<RevCompSequence>();
         static byte[] map;
+        static byte[] outputStreamBytes;
 
         static int Read(Stream stream, byte[] buffer, int offset, int count)
         {
@@ -25,7 +26,7 @@ namespace NSuiteX.Library.ReverseComplement
         }
         static void Reader()
         {
-            using (var stream = new FileStream(@"Data\Shakespeare.txt", FileMode.Open))
+            using (var stream = new FileStream(@"Ressources\Shakespeare.txt", FileMode.Open))
             {
                 int bytesRead;
                 do
@@ -201,6 +202,8 @@ namespace NSuiteX.Library.ReverseComplement
                     }
                     stream.Write(pages[pages.Count - 1], startIndex, sequence.EndExclusive - startIndex);
                 }
+
+                outputStreamBytes = stream.ToArray();
             }
         }
 
@@ -209,6 +212,11 @@ namespace NSuiteX.Library.ReverseComplement
             new Thread(Reader).Start();
             new Thread(Grouper).Start();
             Writer();
+
+            if (outputStreamBytes?.Length == 0)
+            {
+                Console.WriteLine("Error while calculating reverse complement!");
+            }
         }
     }
 }

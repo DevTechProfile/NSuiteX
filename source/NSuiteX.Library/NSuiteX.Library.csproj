@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Platforms>AnyCPU;x64;x86</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,14 +12,16 @@
     <Folder Include="kNucleotide\" />
     <Folder Include="Mandelbrot\" />
     <Folder Include="nBody\" />
-    <Folder Include="Data\" />
-    <Folder Include="Pidigits\" />
+    <Folder Include="Ressources\" />
     <Folder Include="RegexRedux\" />
     <Folder Include="SpectralNorm\" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Data\Shakespeare.txt">
+    <None Update="Ressources\gmp.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Ressources\Shakespeare.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
